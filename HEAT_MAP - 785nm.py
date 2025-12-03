@@ -10,7 +10,7 @@ from os import listdir
 #########################################
 PLOT = True
 
-APPLY_FILTERS = True
+APPLY_FILTERS = False
 SIMULATION_BEGIN_L_nm = 200
 SIMULATION_END_L_nm = 450
 
