@@ -8,16 +8,23 @@ from os import listdir
 #########################################
 ######### Personalized Commands #########
 #########################################
-
 PLOT = True
+
+APPLY_FILTERS = True
 SIMULATION_BEGIN_L_nm = 200
-SIMULATION_END_L_nm = 400
+SIMULATION_END_L_nm = 450
+
+CHOOSE_HEATMAP_VALUE_MAX = True
+HEAT_MAP_VALUE_MAX = 10**5
+INTERPOLATE = True
+
+MAJOR_LOCATOR_L = 6
+MAJOR_LOCATOR_D = 5
+FONTSIZE = 20   
 COLORMAP = 'jet' 
-FONTSIZE = 20
+
 PRINT_DIMENSIONS = False
-
 PLANE_DOMAIN_SIDE_nm = 600 # NOT TO CHANGE!
-
 #########################################
 ############# Reading Files #############
 ######################################### 
@@ -49,26 +56,27 @@ wavelength = data_frame_total['Wavelength'].iloc[0]*1e3
 ############### Filtering ###############
 ######################################### 
 
-# Filter L values within specified range
-if SIMULATION_BEGIN_L_nm in data_frame_total['L'].values:
-    data_frame_total = data_frame_total[data_frame_total['L']>= SIMULATION_BEGIN_L_nm]
-else: 
-    message = (
-        f"SIMULATION_BEGIN_L_nm = {SIMULATION_BEGIN_L_nm} nm not found in data.\n"
-        "No lower filter applied. Available L values:\n" 
-        f"{data_frame_total['L'].unique()}"
-    )
-    raise ValueError(message)
+# Filter L values within specified range 
+if APPLY_FILTERS:
+    if SIMULATION_BEGIN_L_nm in data_frame_total['L'].values:
+        data_frame_total = data_frame_total[data_frame_total['L']>= SIMULATION_BEGIN_L_nm]
+    else: 
+        message = (
+            f"SIMULATION_BEGIN_L_nm = {SIMULATION_BEGIN_L_nm} nm not found in data.\n"
+            "No lower filter applied. Available L values:\n" 
+            f"{data_frame_total['L'].unique()}"
+        )
+        raise ValueError(message)
 
-if SIMULATION_END_L_nm in data_frame_total['L'].values:
-    data_frame_total = data_frame_total[data_frame_total['L']<= SIMULATION_END_L_nm]
-else:
-    message = (
-        f"SIMULATION_BEGIN_L_nm = {SIMULATION_BEGIN_L_nm} nm not found in data.\n"
-        "No upper filter applied. Available L values:\n" 
-        f"{data_frame_total['L'].unique()}"
-    )
-    raise ValueError(message)
+    if SIMULATION_END_L_nm in data_frame_total['L'].values:
+        data_frame_total = data_frame_total[data_frame_total['L']<= SIMULATION_END_L_nm]
+    else:
+        message = (
+            f"SIMULATION_END_L_nm = {SIMULATION_END_L_nm} nm not found in data.\n"
+            "No upper filter applied. Available L values:\n" 
+            f"{data_frame_total['L'].unique()}"
+        )
+        raise ValueError(message)
 
 # unique values for D and pyramid_L
 unique_D = sorted(data_frame_total['D'].unique())
@@ -116,15 +124,20 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
     fig, ax = plt.subplots(figsize = (10,6))
 
     # Next power of 10 as max value
-    value_max = 10 ** np.ceil(np.log10(arr.max()))
-    im = ax.imshow(arr, cmap=COLORMAP, aspect='auto', origin='lower', norm=LogNorm(vmin=1, vmax=value_max))
+    if CHOOSE_HEATMAP_VALUE_MAX:
+        value_max = HEAT_MAP_VALUE_MAX
+    else:
+        value_max = 10 ** np.ceil(np.log10(arr.max()))
+
+    im = ax.imshow(arr, cmap=COLORMAP, aspect='auto', origin='lower', norm=LogNorm(vmin=1, vmax=value_max),
+                   interpolation='bicubic' if INTERPOLATE else 'None')
  
     # Set x-axis ticks and labels (L)
     L_index = [i for i, value in enumerate(L_labels)]
     L_tick_labels = [f"{L_labels[i]:.0f}" for i in L_index]
     ax.set_xticks(L_index)
     ax.set_xticklabels(L_tick_labels)
-    ax.xaxis.set_major_locator(MaxNLocator(nbins=5, integer=True ))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_L, integer=True ))
     ax.set_xlabel(r'Pyramid Base Side - $\mathbf{L}$ (nm)', fontweight='bold' )
     ax.set_xlim(0,len(L_labels)-1)
 
@@ -133,7 +146,7 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
     D_tick_labels = [f"{D_labels[i]:.0f}" for i in D_index]
     ax.set_yticks(D_index)
     ax.set_yticklabels(D_tick_labels)   
-    ax.yaxis.set_major_locator(MaxNLocator(nbins=5, integer=True)) 
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_D, integer=True)) 
     ax.set_ylabel(r'Pyramid Spacing - $\mathbf{D}$ (nm)', fontweight='bold' )
     ax.set_ylim(0,len(D_labels)-1)
 

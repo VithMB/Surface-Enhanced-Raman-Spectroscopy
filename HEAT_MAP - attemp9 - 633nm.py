@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
 from matplotlib.colors import LogNorm
-from matplotlib.ticker import AutoMinorLocator  
+from matplotlib.ticker import AutoMinorLocator  , MaxNLocator
 
 plt.rcParams['font.family'] ='sans-serif' 
 plt.rcParams['mathtext.fontset'] = 'stixsans' 
@@ -17,23 +17,26 @@ def spatial_avg(pyramid_l, D, surface_integral):
 
 def heatmap2d(arr: np.ndarray, x_labels, y_labels):
     fig, ax = plt.subplots(figsize = (10,6))
-    im = ax.imshow(arr, cmap='jet', aspect='auto', origin='lower', norm=LogNorm(vmin=1, vmax=10000))
+    im = ax.imshow(arr, cmap='jet', aspect='auto', origin='lower', norm=LogNorm(vmin=1, vmax=10000),
+                   interpolation='bicubic')
  
     # Set x-axis ticks and labels (L)
-    x_index = [i for i, value in enumerate(x_labels) if value in [100,200,300,400]]
+    x_index = [i for i, value in enumerate(x_labels)]
     x_tick_labels = [f"{x_labels[i]:.0f}" for i in x_index]
     ax.set_xticks(x_index)
     ax.set_xticklabels(x_tick_labels)
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=5, integer=True ))
     ax.set_xlabel(r'Pyramid Base Side - $\mathbf{L}$ (nm)', fontweight='bold' )
-    ax.set_xlim(-1/2, len(x_labels)-1/2)
+    ax.set_xlim(0, len(x_labels)-1)
 
     # Set y-axis ticks and labels (D)
-    y_index = [i for i, value in enumerate(y_labels) if value in [100, 200, 300, 400, 500]]
+    y_index = [i for i, value in enumerate(y_labels)]
     y_tick_labels = [f"{y_labels[i]:.0f}" for i in y_index]
     ax.set_yticks(y_index)
     ax.set_yticklabels(y_tick_labels, fontsize=20)    
+    ax.yaxis.set_major_locator(MaxNLocator(nbins=5, integer=True ))
     ax.set_ylabel(r'Pyramid Spacing - $\mathbf{D}$ (nm)', fontweight='bold' )
-    ax.set_ylim(-1/2, len(y_labels)-1/2)
+    ax.set_ylim(0, len(y_labels)-1)
 
     #minor locator
     ax.xaxis.set_minor_locator(AutoMinorLocator(4))
@@ -65,7 +68,8 @@ data_frame_total = data_frame_total[
     (data_frame_total[header[1]] >= 25)
 ]
  
-
+data_frame_total[header[0]] =data_frame_total[header[0]].round(5)
+data_frame_total[header[1]] =data_frame_total[header[1]].round(5)
 
 pyramid_l = data_frame_total[header[0]] 
 D = data_frame_total[header[1]] 
