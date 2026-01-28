@@ -10,7 +10,7 @@ from os import listdir
 #########################################
 PLOT = True
 
-APPLY_FILTERS = False
+APPLY_FILTERS = True
 SIMULATION_BEGIN_L_nm = 200
 SIMULATION_END_L_nm = 450
 
@@ -18,8 +18,10 @@ CHOOSE_HEATMAP_VALUE_MAX = True
 HEAT_MAP_VALUE_MAX = 10**5
 INTERPOLATE = True
 
-MAJOR_LOCATOR_L = 6
+MAJOR_LOCATOR_L = 5
 MAJOR_LOCATOR_D = 5
+MINOR_LOCATOR_L = 4
+MINOR_LOCATOR_D = 4
 FONTSIZE = 20   
 COLORMAP = 'jet' 
 
@@ -29,9 +31,10 @@ PLANE_DOMAIN_SIDE_nm = 600 # NOT TO CHANGE!
 ############# Reading Files #############
 ######################################### 
 
-data_frame_plano = pd.read_csv('attempt10/E^4_attempt10_Plano.csv', header=4)
 
+data_frame_plano = pd.read_csv('attempt10/E^4_attempt10_Plano.csv', header=4)
 read_path = 'attempt10/'
+
 file_list = listdir(read_path)
 data_frames = np.empty(len(file_list)-1, dtype=object)
 
@@ -77,6 +80,7 @@ if APPLY_FILTERS:
             f"{data_frame_total['L'].unique()}"
         )
         raise ValueError(message)
+     
 
 # unique values for D and pyramid_L
 unique_D = sorted(data_frame_total['D'].unique())
@@ -137,7 +141,7 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
     L_tick_labels = [f"{L_labels[i]:.0f}" for i in L_index]
     ax.set_xticks(L_index)
     ax.set_xticklabels(L_tick_labels)
-    ax.xaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_L, integer=True ))
+    ax.xaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_L, integer=True))
     ax.set_xlabel(r'Pyramid Base Side - $\mathbf{L}$ (nm)', fontweight='bold' )
     ax.set_xlim(0,len(L_labels)-1)
 
@@ -151,8 +155,8 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
     ax.set_ylim(0,len(D_labels)-1)
 
     #major and minor locator
-    ax.xaxis.set_minor_locator(AutoMinorLocator(4))
-    ax.yaxis.set_minor_locator(AutoMinorLocator(4)) 
+    ax.xaxis.set_minor_locator(AutoMinorLocator(MINOR_LOCATOR_L))
+    ax.yaxis.set_minor_locator(AutoMinorLocator(MINOR_LOCATOR_D)) 
     ax.tick_params(which='major', length=8, width=2.1)
     ax.tick_params(which='minor', length=5, width=1.8)
 
