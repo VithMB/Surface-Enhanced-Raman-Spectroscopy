@@ -32,8 +32,8 @@ PLANE_DOMAIN_SIDE_nm = 600 # NOT TO CHANGE!
 ######################################### 
 
 
-data_frame_plano = pd.read_csv('attempt10/E^4_attempt10_Plano.csv', header=4)
-read_path = 'attempt10/'
+data_frame_plano = pd.read_csv('attempt9/E^4_attempt9_Plano.csv', header=4)
+read_path = 'attempt9/'
 
 file_list = listdir(read_path)
 data_frames = np.empty(len(file_list)-1, dtype=object)
@@ -133,26 +133,28 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
     else:
         value_max = 10 ** np.ceil(np.log10(arr.max()))
 
-    im = ax.imshow(arr, cmap=COLORMAP, aspect='auto', origin='lower', norm=LogNorm(vmin=1, vmax=value_max),
-                   interpolation='bicubic' if INTERPOLATE else 'None')
+    im = ax.imshow(arr, cmap=COLORMAP, aspect='auto', origin='lower',
+                    norm=LogNorm(vmin=1, vmax=value_max),
+                   interpolation='bicubic' if INTERPOLATE else 'None',
+                   extent=[L_labels[0], L_labels[-1], D_labels[0], D_labels[-1]])
  
-    # Set x-axis ticks and labels (L)
-    L_index = [i for i, value in enumerate(L_labels)]
-    L_tick_labels = [f"{L_labels[i]:.0f}" for i in L_index]
-    ax.set_xticks(L_index)
-    ax.set_xticklabels(L_tick_labels)
-    ax.xaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_L, integer=True))
+    # # Set x-axis ticks and labels (L)
+    # L_index = [i for i, value in enumerate(L_labels)]
+    # L_tick_labels = [f"{L_labels[i]:.0f}" for i in L_index]
+    # ax.set_xticks(L_index)
+    # ax.set_xticklabels(L_tick_labels)
+    # ax.xaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_L, integer=True)) 
+    # ax.set_xlim(0,len(L_labels)-1)
     ax.set_xlabel(r'Pyramid Base Side - $\mathbf{L}$ (nm)', fontweight='bold' )
-    ax.set_xlim(0,len(L_labels)-1)
 
-    # Set y-axis ticks and labels (D)
-    D_index = [i for i, value in enumerate(D_labels)]
-    D_tick_labels = [f"{D_labels[i]:.0f}" for i in D_index]
-    ax.set_yticks(D_index)
-    ax.set_yticklabels(D_tick_labels)   
-    ax.yaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_D, integer=True)) 
+    # # Set y-axis ticks and labels (D)
+    # D_index = [i for i, value in enumerate(D_labels)]
+    # D_tick_labels = [f"{D_labels[i]:.0f}" for i in D_index]
+    # ax.set_yticks(D_index)
+    # ax.set_yticklabels(D_tick_labels)   
+    # ax.yaxis.set_major_locator(MaxNLocator(nbins=MAJOR_LOCATOR_D, integer=True)) 
+    # ax.set_ylim(0,len(D_labels)-1)
     ax.set_ylabel(r'Pyramid Spacing - $\mathbf{D}$ (nm)', fontweight='bold' )
-    ax.set_ylim(0,len(D_labels)-1)
 
     #major and minor locator
     ax.xaxis.set_minor_locator(AutoMinorLocator(MINOR_LOCATOR_L))
@@ -172,6 +174,11 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
 #########################################
 
 EF_grid = build_grid(data_frame_total, unique_D, unique_pyramid_L)
+
+# exporta dataframe
+ef_dataframe = pd.DataFrame(EF_grid, index=unique_D, columns=unique_pyramid_L)
+ef_dataframe.to_csv(f'EF_Heatmap_{wavelength:.0f}nm.csv' , index_label='D\L (nm)')
+
 
 if PLOT:
     heatmap2d(EF_grid, unique_pyramid_L, unique_D, wavelength) 
