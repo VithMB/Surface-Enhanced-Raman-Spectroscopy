@@ -1,0 +1,33 @@
+Data: 2026-01-27
+Local: DF
+Participantes: Hudson Miranda, Cassiano Rabelo, Marianade Almeida, Paulo Sérgio Guimarães, Wagner Nunes, Vitor Bertani
+Pauta: Início do Projeto SERS com a FabNS
+
+----------
+Resultados até o Presente
+- Analisamos os resultados da litografia FIB obtidos e apresentados em poster 30° CSBMM, em Maceió.
+- Em prol da rapidez para entrega de um primeiro dispositivo, decidimos primeiro fazer um dispositivo direto do template mestre de silício, para depois investigar templates secundários poliméricos.
+- Foram relatados os desafios encontrados na rota de litografia e-beam, principalmente na corrosão do cromo.
+- Menção dos aparatos para extrair com segurança os dispositivos do template de sílicio, um feito por Vitor e outro mais sofisticado feito pela LabNS. 
+
+----------
+Resultados de Simulação
+- Para achar um dispositivo ótimo para ambos os mapas (633 e 785 nm) bastaria multiplicá-los.
+- Decidimos usar os mapas feitos por Vitor em COMSOL 6.1 apesar das diferenças com o anteriormente feito por Yuri Isayhama em COMSOL 5.4.
+----------
+Amostra para Testes
+- Ficou decidido usar ureia por hora.
+- Leite (usado em colaboração anterior) foi descartado como uma matriz muito complexa para se analisar. 
+- Sugestão de analisar toxinas em café, devido ao interesse de um produtor/exportador de café em reduzir os altos gastos em análise química via ELISA. 
+
+----------
+Benchmarking de Dispositivos
+- Foi discutida a necessidade de comparar os dispositivos fabricados no projeto com as alternativas de mercado.
+- Contamos já com dispotivos da SERSitive (Hudson), caros e aparentemente ineficazes, uns fora da validade (Wagner) e impressos em folha (Mariana).
+
+----------
+Tarefas
+- Paulo Sérgio et al. continuará na frente de fabricação por e-beam
+- Vitor e Wagner avançarão no rota por FIB
+- Cassiano ponderará sobre as diferenças dos mapas de simulação
+- Mariana buscará sobre medidas de ocratoxina em café.
