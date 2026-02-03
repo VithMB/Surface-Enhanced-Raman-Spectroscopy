@@ -8,6 +8,11 @@
 # The function <getstagepos> has <x>,<y> as default variables.
 # The stage actually moves in [mm],the <*0.001> is unit conversion.
 
+
+
+
+#Usar <getbeamshift>, <xbeam>, <ybeam> e e adicionar um valor fixo, um que não cresce
+
 ############## Settings #############
 setmag 35000   
 setpatinfo 0.055, si     
