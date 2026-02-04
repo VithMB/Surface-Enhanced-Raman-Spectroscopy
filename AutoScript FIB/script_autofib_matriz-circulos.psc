@@ -1,15 +1,18 @@
-## General commentaries:
+### General comments:
 # The section <Settings> contains all the parameters to be chosen.
+
 # <setmag> is such that the 5x5 drawn circles fit well.
 # First argument of <setpatinfo> is Z depth in [um]. 
-# <D> is spacing border-border, <L> is diameter.
+# <D> is spacing border-border, <L> is diameter, <pitch> is center-center.
+# Milled <L> is purposely done x0.81 smaller.
+
 # Limit of the Beam Shift is 100um from the center.
 # If programmed beam shifts exceeds 90um, the code ends before any milling . 
-# Milled <L> must be 0.81 smaller.
+
 # Avoid using division /, the program struggles with it in some cases.
+
 # The function <getstagepos> has <x>,<y> as default variables.
 # Calling <getstagepos> updates these variables with current stage position.
-# The same applies to <getbeamshift> with <xbeam>,<ybeam>.
 # The stage actually moves in [mm],the <*0.001> is unit conversion.
 
 #####################################
@@ -39,8 +42,8 @@ circle_radius_um = L_correction * 0.5
 beam_delta_x = pitch_um * quantity_circles_x
 beam_delta_y = pitch_um * quantity_circles_y
 
-total_beam_x = beam_delta_x * (beam_shifts_x + 1)
-total_beam_y = beam_delta_y * (beam_shifts_y + 1)
+total_beam_x = beam_delta_x * beam_shifts_x
+total_beam_y = beam_delta_y * beam_shifts_y
 if (total_beam_x * total_beam_x + total_beam_y * total_beam_y >= 90 * 90) goto end
 
 stage_delta_x = beam_delta_x * (beam_shifts_x + 1) * 0.001
