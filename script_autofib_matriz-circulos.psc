@@ -1,18 +1,23 @@
-### General comments
-# The section <Settings> contains all the parameters to be chosen.
+# # # General comments
 
-# <setmag> is such that the drawn circles fit well.
-# First argument of <setpatinfo> is Z depth in [um]. 
-# <D> is spacing border-border, <L> is diameter, <pitch> is center-center.
+# # The section <Settings> contains all the parameters to be chosen.
+# <setmag> chosen the magnification
+# First argument of <setpatinfo> is Z depth in [um], second is material. 
+# <D> is spacing border-border, and <L> is diameter, <pitch> is center-center.
 # Milled <L> is purposely done x0.81 smaller.
-
+# <quantity_circles> defines the numer of circles to be drawn in each direction on the screen.
+# <circle_offset> is the position of the fist circle on the screen.
+# <beam_shifts> is the number of beam shifts, works like a matrix.
+# <beam_offset> is the position of the first beam shift.
 # Limit of the Beam Shift is 50um from the center.
-# Set at 35um to keep at center
-# 	
- 
+# The range is set to be 35um, to keep at center. 35um from center is around 11 shifts.
+# <stage_moves> is the number of stage moves, works like a matrix.
+
+# # About numerical operations:
 # Avoid using division /, the program struggles with it in some cases.
 # Or use / with .0 at the end of the number to force float number division.
 
+# # Notes about loops (optional):
 # The function <getstagepos> has <x>,<y> as default variables.
 # Calling <getstagepos> updates these variables with current stage position.
 # The stage actually moves in [mm],the <*0.001> is unit conversion.
@@ -45,7 +50,7 @@ stage_moves_y = 0
 ######## Auxiliary Variables ########
 L_correction = L * 0.81       
 pitch = L + D   
-circle_radius = L_correction * 0.5
+circle_diameter = L_correction 
 
 beam_delta_x = pitch * quantity_circles_x
 beam_delta_y = pitch * quantity_circles_y
@@ -62,7 +67,7 @@ DrawingLoop:
     circle_x = -circle_offset_x + (pitch * count_circles_x)
     circle_y = +circle_offset_y - (pitch * count_circles_y)
 
-    circle circle_x, circle_y, 0, circle_radius                
+    circle circle_x, circle_y, 0, circle_diameter                
 
     count_circles_x = count_circles_x + 1
     if (count_circles_x < quantity_circles_x) goto DrawingLoop
