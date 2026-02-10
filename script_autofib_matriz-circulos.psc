@@ -24,6 +24,7 @@
 
 #####################################
 ############## Settings #############
+#####################################
 setmag 35000   
 setpatinfo 0.06, si     
 setparallelmode 0              
@@ -48,6 +49,7 @@ stage_moves_y = 0
 
 #####################################
 ######## Auxiliary Variables ########
+#####################################
 L_correction = L * 0.81       
 pitch = L + D   
 circle_diameter = L_correction 
@@ -60,6 +62,7 @@ stage_delta_y = beam_delta_y * (beam_shifts_y + 1) * 0.001
 
 #####################################
 ############ Draw Pattern ###########
+#####################################
 clear
 count_circles_x = 0
 count_circles_y = 0
@@ -79,6 +82,7 @@ DrawingLoop:
 
 #####################################
 ############### Stage ###############
+#####################################
 getstagepos
 origin_x = x
 origin_y = y
@@ -92,6 +96,7 @@ StageMoveLoop:
 
     ################################# 
     ########## Beam & Mill ##########
+    #################################
     setbeamshift beam_offset_x ,beam_offset_y 
 
     count_beam_shift_x = 0
@@ -122,6 +127,7 @@ StageMoveLoop:
 
 #####################################
 ########### Finalization ############
+#####################################
 setbeamshift 0,0
 setmag 10000
 clear
