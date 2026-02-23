@@ -14,6 +14,7 @@
 # <stage_moves> is the number of stage moves, works like a matrix.
 
 # # About numerical operations:
+# Parentesis are importante even in multiplication.
 # Avoid using division /, the program struggles with it in some cases.
 # Or use / with .0 at the end of the number to force float number division.
 
@@ -33,10 +34,11 @@ D = 0.446
 L = 0.347                                 
 
 quantity_circles_x = 4
-quantity_circles_y = 4
+quantity_circles_y = 0
 
-circle_offset_x = 1.25
-circle_offset_y = 1.05
+HFW = 4096.0/dacppm
+circle_offset_x = HFW - (pitch * (quantity_circles_x - 1))
+circle_offset_y = 0
  
 beam_shifts_x = 15
 beam_shifts_y = 15
@@ -67,8 +69,8 @@ clear
 count_circles_x = 0
 count_circles_y = 0
 DrawingLoop:
-    circle_x = -circle_offset_x + (pitch * count_circles_x)
-    circle_y = +circle_offset_y - (pitch * count_circles_y)
+    circle_x = circle_offset_x + (pitch * count_circles_x)
+    circle_y = circle_offset_y - (pitch * count_circles_y)
 
     circle circle_x, circle_y, 0, circle_diameter                
 
