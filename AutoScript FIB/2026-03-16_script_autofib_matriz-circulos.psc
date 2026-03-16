@@ -26,25 +26,23 @@
 #####################################
 ############## Settings #############
 #####################################
-setmag 35000   
+setmag 5000   
 setpatinfo 0.06, si     
 setparallelmode 0              
                                     
 D = 0.446 
 L = 0.347                                 
 
-quantity_circles_x = 4
-quantity_circles_y = 0
+quantity_circles_x = 25
+quantity_circles_y = 25
 
-HFW = 4096.0/dacppm
-circle_offset_x = HFW - (pitch * (quantity_circles_x - 1))
-circle_offset_y = 0
+sleeptime_ms = 900000
  
-beam_shifts_x = 15
-beam_shifts_y = 15
+beam_shifts_x = 0
+beam_shifts_y = 0
 
-beam_offset_x = 35
-beam_offset_y = 35
+beam_offset_x = 0
+beam_offset_y = 0
 
 stage_moves_x = 0
 stage_moves_y = 0
@@ -55,6 +53,9 @@ stage_moves_y = 0
 L_correction = L * 0.81       
 pitch = L + D   
 circle_diameter = L_correction 
+
+circle_offset_x = -(pitch * (quantity_circles_x - 1))*0.5
+circle_offset_y = +(pitch * (quantity_circles_y - 1))*0.5
 
 beam_delta_x = pitch * quantity_circles_x
 beam_delta_y = pitch * quantity_circles_y
@@ -82,6 +83,7 @@ DrawingLoop:
     if (count_circles_y < quantity_circles_y) goto DrawingLoop 
     count_circles_y = 0 
 
+sleep sleeptime_ms
 #####################################
 ############### Stage ###############
 #####################################
@@ -99,8 +101,7 @@ StageMoveLoop:
     ################################# 
     ########## Beam & Mill ##########
     #################################
-    setbeamshift beam_offset_x ,beam_offset_y 
-
+    setbeamshift beam_offset_x,beam_offset_y
     count_beam_shift_x = 0
     count_beam_shift_y = 0
     BeamShiftLoop: 
