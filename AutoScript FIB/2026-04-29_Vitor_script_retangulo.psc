@@ -26,16 +26,17 @@
 ############## Settings #############
 #####################################
 setmag 5000   
-setpatinfo 0.06, si     
+setpatinfo 0.08, si     
 setparallelmode 0              
                                     
-D = 0.446 
-L = 0.347                                 
+Altura = 0.300
+Base = 0.100
+Pitch = 0.450                              
 
-QuantityCirclesX = 20
-QuantityCirclesY = 20
+QuantityCirclesX = 10
+QuantityCirclesY = 10
 
-SleeptimeMs = 40000
+SleeptimeMs = 20000
  
 BeamShiftsX = 1
 BeamShiftsY = 1
@@ -47,9 +48,7 @@ StageMovesX = 1
 
 #####################################
 ######## Auxiliary Variables ########
-#####################################
-Pitch = L + D   
-CircleDiameter = L
+##################################### 
 
 CircleOffsetX = -(Pitch * (QuantityCirclesX - 1))*0.5
 CircleOffsetY = +(Pitch * (QuantityCirclesY - 1))*0.5
@@ -70,7 +69,12 @@ DrawingLoop:
     CircleX = CircleOffsetX + (Pitch * CountCirclesX)
     CircleY = CircleOffsetY - (Pitch * CountCirclesY)
 
-    circle CircleX, CircleY, 0, CircleDiameter                
+    SquareStartX = CircleX - (Base * 0.5)
+    SquareStartY = CircleY + (Altura * 0.5)
+    SquareEndX = CircleX + (Base * 0.5)
+    SquareEndY = CircleY - (Altura * 0.5)
+
+    box SquareStartX, SquareStartY, SquareEndX, SquareEndY              
 
     CountCirclesX = CountCirclesX + 1
     if (CountCirclesX < QuantityCirclesX) goto DrawingLoop

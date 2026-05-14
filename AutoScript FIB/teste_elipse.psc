@@ -1,12 +1,12 @@
 setmag 20000 
-setpatinfo 0.06, si     
-setparallelmode 0              
-                                    
-EixoV = 1
-EixoH = 3 
-Pitch = 0.150      
+setpatinfo 0.06, si               
 
-x = Pitch
+x0 = 0
+y0 = 0
+side = 0.2
+height = 0.6
+
+Pitch = 0.150      
 
 #####################################
 ############ Draw Pattern ###########
@@ -14,9 +14,7 @@ x = Pitch
 
 clear
 
-bitmap 0, 0, 0.2, 0.6, elipse_branca_3x1.bmp          
-
-bitmap 0, 0, 0.2, 0.6, elipse_branca_3x1.bmp             
+bitmap x0, y0, side, height, elipse_branca_3x1.bmp    
  
 end:
 clear
