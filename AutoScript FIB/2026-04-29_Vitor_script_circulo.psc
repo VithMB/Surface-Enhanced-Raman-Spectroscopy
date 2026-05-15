@@ -61,6 +61,9 @@ BeamDeltaY = Pitch * QuantityCirclesY
 StageDeltaX = (BeamDeltaX * (BeamShiftsX + 1) * 0.001)/2.0
 StageDeltaY = (BeamDeltaY * (BeamShiftsY + 1) * 0.001)/2.0
 
+getstagepos
+OriginX = x
+
 #####################################
 ############ Draw Pattern ###########
 #####################################
@@ -87,21 +90,28 @@ sleep SleeptimeMs
 ########## Beam & Mill ##########
 #################################
 setbeamshift BeamOffsetX,BeamOffsetY
+
 CountBeamShiftX = 0
 CountBeamShiftY = 0
 CountStageX = 0
 CountStageY = 0
 
 BeamShiftLoop: 
-    BeamX = BeamOffsetX - (BeamDeltaX * CountBeamShiftX)
-    BeamY = BeamOffsetY + (BeamDeltaY * CountBeamShiftY)
-    setbeamshift BeamX, BeamY
-
     mill
+
+    getbeamshift 
+    CurrentBeamX = xbeam 
+    CurrentBeamY = ybeam
+
+    BeamX = CurrentBeamX - BeamDeltaX
+    setbeamshift BeamX, CurrentBeamY
 
     CountBeamShiftX = CountBeamShiftX + 1
     if (CountBeamShiftX <= BeamShiftsX) goto BeamShiftLoop   
     CountBeamShiftX = 0
+    
+    BeamY = CurrentBeamY + BeamDeltaY
+    setbeamshift BeamOffsetX, BeamY
 
     CountBeamShiftY = CountBeamShiftY + 1
     if (CountBeamShiftY <= BeamShiftsY) goto BeamShiftLoop
@@ -112,6 +122,8 @@ BeamShiftLoop:
 #####################################
 getstagepos
 CurrentX = x 
+CurrentY = y
+
 StageX = CurrentX + StageDeltaX  
 stagemove x, StageX
 
@@ -119,9 +131,8 @@ CountStageX = CountStageX + 1
 if (CountStageX <= StageMovesX) goto BeamShiftLoop
 CountStageX = 0
 
-CurrentY = y
 StageY = CurrentY + StageDeltaY  
-stagemove y, StageY
+stagemove xy, OriginX, StageY
 
 CountStageY = CountStageY + 1
 if (CountStageY <= StageMovesY) goto BeamShiftLoop
