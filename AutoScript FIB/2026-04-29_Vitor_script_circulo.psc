@@ -8,7 +8,7 @@
 # <CircleOffset> is the position of the fist circle on the screen.
 # <BeamShifts> is the number of beam shifts +1, for counting the first drawn pattern.
 # <BeamOffset> is the position of the first beam shift.
-# <StageMovesX> is the number of stages movements +1, for counting the first drawn pattern.
+# <StageMoves> is the number of stages movements +1, for counting the first drawn pattern.
 # Limit of the Beam Shift is 50um radially from the center. 
 
 # # About numerical operations:
@@ -26,24 +26,25 @@
 ############## Settings #############
 #####################################
 setmag 5000   
-setpatinfo 0.06, si     
+setpatinfo 0.12, si     
 setparallelmode 0              
                                     
-D = 0.446 
-L = 0.347                                 
+D = 0.450 
+L = 0.350                                 
 
-QuantityCirclesX = 20
-QuantityCirclesY = 20
+QuantityCirclesX = 10
+QuantityCirclesY = 10
 
-SleeptimeMs = 40000
+SleeptimeMs = 0
  
-BeamShiftsX = 1
-BeamShiftsY = 1
+BeamShiftsX = 0
+BeamShiftsY = 0
 
 BeamOffsetX = 0
 BeamOffsetY = 0
 
-StageMovesX = 1
+StageMovesX = 0
+StageMovesY = 0
 
 #####################################
 ######## Auxiliary Variables ########
@@ -51,14 +52,14 @@ StageMovesX = 1
 Pitch = L + D   
 CircleDiameter = L
 
-CircleOffsetX = -(Pitch * (QuantityCirclesX - 1))*0.5
-CircleOffsetY = +(Pitch * (QuantityCirclesY - 1))*0.5
+CircleOffsetX = -(Pitch * (QuantityCirclesX - 1))/2.0
+CircleOffsetY = +(Pitch * (QuantityCirclesY - 1))/2.0
 
 BeamDeltaX = Pitch * QuantityCirclesX
 BeamDeltaY = Pitch * QuantityCirclesY
 
-StageDeltaX = BeamDeltaX * (BeamShiftsX + 1) * 0.001
-StageDeltaY = BeamDeltaY * (BeamShiftsY + 1) * 0.001
+StageDeltaX = (BeamDeltaX * (BeamShiftsX + 1) * 0.001)/2.0
+StageDeltaY = (BeamDeltaY * (BeamShiftsY + 1) * 0.001)/2.0
 
 #####################################
 ############ Draw Pattern ###########
@@ -89,6 +90,7 @@ setbeamshift BeamOffsetX,BeamOffsetY
 CountBeamShiftX = 0
 CountBeamShiftY = 0
 CountStageX = 0
+CountStageY = 0
 
 BeamShiftLoop: 
     BeamX = BeamOffsetX - (BeamDeltaX * CountBeamShiftX)
@@ -98,23 +100,32 @@ BeamShiftLoop:
     mill
 
     CountBeamShiftX = CountBeamShiftX + 1
-    if (CountBeamShiftX < BeamShiftsX) goto BeamShiftLoop   
+    if (CountBeamShiftX <= BeamShiftsX) goto BeamShiftLoop   
     CountBeamShiftX = 0
 
     CountBeamShiftY = CountBeamShiftY + 1
-    if (CountBeamShiftY < BeamShiftsY) goto BeamShiftLoop
+    if (CountBeamShiftY <= BeamShiftsY) goto BeamShiftLoop
     CountBeamShiftY = 0 
 
 #####################################
 ############### Stage ###############
 #####################################
 getstagepos
-OriginX = x 
-StageX = OriginX + StageDeltaX  
+CurrentX = x 
+StageX = CurrentX + StageDeltaX  
 stagemove x, StageX
 
 CountStageX = CountStageX + 1
-if (CountStageX < StageMovesX) goto BeamShiftLoop
+if (CountStageX <= StageMovesX) goto BeamShiftLoop
+CountStageX = 0
+
+CurrentY = y
+StageY = CurrentY + StageDeltaY  
+stagemove y, StageY
+
+CountStageY = CountStageY + 1
+if (CountStageY <= StageMovesY) goto BeamShiftLoop
+CountStageY = 0
 
 #####################################
 ########### Finalization ############
