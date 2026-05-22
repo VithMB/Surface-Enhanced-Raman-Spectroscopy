@@ -53,9 +53,6 @@ getstagepos
 OriginX = x
 OriginY = y
 
-getstagepos
-OriginX = x
-
 #####################################
 ########### Draw Pattern ############
 #####################################
@@ -78,7 +75,6 @@ DrawingLoop:
 
 sleep SleeptimeMs
 
-<<<<<<< HEAD:AutoScript FIB/2026-05-15_Vitor_script_circulo.psc
 #####################################
 ############ Stage Loop Y ###########
 #####################################
@@ -92,64 +88,19 @@ StageLoopY:
     CountStageX = 0
 
     StageLoopX:
-=======
-################################# 
-########## Beam & Mill ##########
-#################################
-setbeamshift BeamOffsetX,BeamOffsetY
-
-CountBeamShiftX = 0
-CountBeamShiftY = 0
-CountStageX = 0
-CountStageY = 0
-
-BeamShiftLoop: 
-    mill
-
-    getbeamshift 
-    CurrentBeamX = xbeam 
-    CurrentBeamY = ybeam
-
-    BeamX = CurrentBeamX - BeamDeltaX
-    setbeamshift BeamX, CurrentBeamY
-
-    CountBeamShiftX = CountBeamShiftX + 1
-    if (CountBeamShiftX <= BeamShiftsX) goto BeamShiftLoop   
-    CountBeamShiftX = 0
-    
-    BeamY = CurrentBeamY + BeamDeltaY
-    setbeamshift BeamOffsetX, BeamY
->>>>>>> 235dc7a453975a8cf541f92eb5da4a55d16a6fb2:AutoScript FIB/2026-04-29_Vitor_script_circulo.psc
 
 
-<<<<<<< HEAD:AutoScript FIB/2026-05-15_Vitor_script_circulo.psc
-=======
-#####################################
-############### Stage ###############
-#####################################
-getstagepos
-CurrentX = x 
-CurrentY = y
-
-StageX = CurrentX + StageDeltaX  
-stagemove x, StageX
->>>>>>> 235dc7a453975a8cf541f92eb5da4a55d16a6fb2:AutoScript FIB/2026-04-29_Vitor_script_circulo.psc
 
         #####################################
         ############### Mill ################
         #####################################
         mill
 
-<<<<<<< HEAD:AutoScript FIB/2026-05-15_Vitor_script_circulo.psc
         #####################################
         ########## Advance Stage X ##########
         #####################################
         CountStageX = CountStageX + 1
         if (CountStageX > StageMovesX) goto EndStageLoopX
-=======
-StageY = CurrentY + StageDeltaY  
-stagemove xy, OriginX, StageY
->>>>>>> 235dc7a453975a8cf541f92eb5da4a55d16a6fb2:AutoScript FIB/2026-04-29_Vitor_script_circulo.psc
 
         getstagepos
         CurrentX = x
