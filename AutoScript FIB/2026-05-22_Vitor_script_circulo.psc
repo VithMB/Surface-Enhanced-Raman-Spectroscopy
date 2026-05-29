@@ -22,20 +22,22 @@
 #####################################
 ############## Settings #############
 #####################################
-setmag 5000   
-setpatinfo 0.09, si     
-setparallelmode 0              
-                                    
+setmag 5000                
+                                  
 D = 0.450 
-L = 0.350                                 
+L = 0.350    
+Depth = 0.10                             
 
-QuantityCirclesX = 10
-QuantityCirclesY = 4
+QuantityCirclesX = 5
+QuantityCirclesY = 5
 
 SleeptimeMs = 0
 
-StageMovesX = 3
-StageMovesY = 2
+StageMovesX = 0
+StageMovesY = 0
+
+setpatinfo Depth, si     
+setparallelmode 0 
 
 #####################################
 ######## Auxiliary Variables ########
@@ -48,7 +50,7 @@ CircleOffsetY = +(Pitch * (QuantityCirclesY - 1))/2.0
 
 StageDeltaX = Pitch * QuantityCirclesX * 0.001
 StageDeltaY = Pitch * QuantityCirclesY * 0.001
-StageDeltaY = StageDeltaY * 1.05
+
 getstagepos
 OriginX = x
 OriginY = y
