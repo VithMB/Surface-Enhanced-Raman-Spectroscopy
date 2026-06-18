@@ -6,9 +6,9 @@ import numpy as np
 CIRCLE = 1
 RECTANGLE = 0
 
-SIZE = 0
+SIZE = 1
 SIDE_SIDE = 0
-PITCH = 1
+PITCH = 0
 
 #####################################
 circle_nominal_D = 450
@@ -19,6 +19,11 @@ circle_nominal_pitch = [(circle_nominal_D + L) for L in circle_nominal_L]
 circle_real_pitch = [768, 792, 818, 844, 870]
 
 circle_real_D = [(pitch - L) for pitch, L in zip(circle_real_pitch, circle_real_L)]
+#####################################
+circle_KOH_L = [400, 433, 454, 489, 506]
+
+
+#####################################
   
 
 
@@ -68,12 +73,16 @@ c1 = '#552b16'
 c2 = '#ed872d'  
 #Infiniteeth Color Palete v1 Color Palette
 
-plt.scatter(nominal, real, color= c1, s = size ,label='Circular Cavity')   
+plt.scatter(nominal, real, color= c1, s = size ,label='Circle Mask')   
+plt.scatter(nominal, circle_KOH_L, color=c2, s=size, label ='Circle KOH')
 ####################
 
 #escreva em cima de cada ponto o valor real
+labels = 16
 for i in range(len(nominal)):
-    plt.text(nominal[i], real[i]*1.001, f'{real[i]}', ha='center', va='bottom', fontsize=14, fontweight='bold', color=c1) 
+    plt.text(nominal[i], real[i]*1.001, f'{real[i]}', ha='center', va='bottom', fontsize=labels, fontweight='bold', color=c1) 
+    
+    plt.text(nominal[i], circle_KOH_L[i]*1.002, f'{circle_KOH_L[i]}', ha='center', va='bottom', fontsize=labels, fontweight='bold', color=c2) 
 
 #ticks em x onde estão os pontos
 plt.xticks(nominal)
@@ -86,15 +95,14 @@ plt.xlabel(f'{xlabel} (nm)', fontweight='bold',fontsize=24)
 plt.gca().xaxis.set_minor_locator(AutoMinorLocator(4))
 plt.gca().yaxis.set_minor_locator(AutoMinorLocator(4))
 # plt.gca().tick_params(axis='both', which='major', length=6, width=2.6)
-# plt.gca().tick_params(axis='both', which='minor', length=3, width=1.8)
+# plt.gca().tick_params(axis='both', which='minor', length=3, width=1.8) 
 plt.grid(which ='major', visible=True, linestyle='-',  lw =0.75, alpha=0.25, color = "black")  
-plt.grid(which= 'minor', visible=True, linestyle='-',  lw =0.25, alpha=0.15, color = "black")  
-# border_x= nominal[0]*0.05
-# border_y = real[0]*0.05
-# plt.xlim(nominal[0] - border_x, nominal[-1] + border_x)
-# plt.ylim(real[0] - border_y, real[-1] + border_y)
+plt.grid(which= 'minor', visible=True, linestyle='-',  lw =0.25, alpha=0.15, color = "black")    
 
-plt.legend(loc = 'upper center', frameon=False, bbox_to_anchor=(0.5, 1.12), ncol=2, fontsize=18) 
+plt.xticks(fontweight='bold')
+# plt.gca().set_yticklabels([]) 
+
+plt.legend(loc = 'upper center', frameon=False, bbox_to_anchor=(0.5, 1.12), ncol=3, fontsize=18) 
 
 plt.text(0, 1.02, 'FIB current : 50 pA', ha='left', va='center', transform=plt.gca().transAxes, fontsize=16, fontweight='bold') 
 
