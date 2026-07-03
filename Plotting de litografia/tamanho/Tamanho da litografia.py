@@ -2,63 +2,50 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 import numpy as np 
 
-#####################################
-CIRCLE = 1
-RECTANGLE = 0
-
-SIZE = 1
+##################################### 
+SIZE = 0
 SIDE_SIDE = 0
 PITCH = 0
+ 
+#####################################
+circle_mask_nominal_L = [300,325,350,375,400]
+circle_mask_nominal_D = 450
+circle_mask_nominal_pitch = [(circle_mask_nominal_D + L) for L in circle_mask_nominal_L]
+
+
+circle_mask_real_L = [298,339,375,399,422]  
+circle_mask_real_pitch = [768, 792, 818, 844, 870]
+circle_mask_real_D = [(pitch - L) for pitch, L in zip(circle_mask_real_pitch, circle_mask_real_L)]
 
 #####################################
-circle_nominal_D = 450
-circle_nominal_L = [300,325,350,375,400]
-circle_real_L = [298,339,375,399,422] 
+circle_mask_KOH_real_L = [400, 433, 454, 489, 506]
 
-circle_nominal_pitch = [(circle_nominal_D + L) for L in circle_nominal_L]
-circle_real_pitch = [768, 792, 818, 844, 870]
-
-circle_real_D = [(pitch - L) for pitch, L in zip(circle_real_pitch, circle_real_L)]
+#####################################  
+pyramid_cavity_real_L = [536,580, 596, 622, 656]
+pyramid_cavity_real_pitch = [763, 792, 816, 843, 870]
+pyramid_cavity_real_D = [(pitch - L) for pitch, L in zip(pyramid_cavity_real_pitch, pyramid_cavity_real_L)]
 #####################################
-circle_KOH_L = [400, 433, 454, 489, 506]
-
+comparative = pyramid_cavity_real_D
+comparative_label = 'Pyramid Cavity'
 
 #####################################
-  
-
-
-if SIZE:
-    if CIRCLE:
-        nominal = circle_nominal_L
-        real = circle_real_L
-        xlabel = 'Nominal L'
-        ylabel = 'Real L'
-    # elif RECTANGLE:
-    #     nominal = rectangle_nominal_L
-    #     real = rectangle_real_L
-    else:
-        raise ValueError("Nenhuma forma válida selecionada")
-
-elif PITCH:
-    if CIRCLE:
-        nominal = circle_nominal_pitch
-        real = circle_real_pitch
-        xlabel = 'Nominal Pitch'
-        ylabel = 'Real Pitch' 
-    else:
-        raise ValueError("Nenhuma forma válida selecionada")
-
-elif SIDE_SIDE:
-    if CIRCLE:
-        nominal = circle_nominal_L
-        real = circle_real_D
-        xlabel = 'Nominal L'
-        ylabel = 'Real D' 
-    else:
-        raise ValueError("Nenhuma forma válida selecionada")
-
+if SIZE: 
+    nominal = circle_mask_nominal_L
+    real = circle_mask_real_L
+    xlabel = 'Nominal L'
+    ylabel = 'Real L'   
+elif PITCH: 
+    nominal = circle_mask_nominal_pitch
+    real = circle_mask_real_pitch
+    xlabel = 'Nominal Pitch'
+    ylabel = 'Real Pitch'    
+elif SIDE_SIDE: 
+    nominal = circle_mask_nominal_L
+    real = circle_mask_real_D
+    xlabel = 'Nominal L'
+    ylabel = 'Real D'   
 else:
-    raise ValueError("Nem SIZE nem PITCH estão ativos")
+    raise ValueError("Nem SIZE nem PITCH nem SIDE_SIDE estão ativos")
 
 ####################
 plt.rcParams.update({'font.size': 20})
@@ -69,12 +56,12 @@ plt.figure(figsize=(16*0.7,9*0.7), dpi=100)
 
 #####################
 size = 40
-c1 = '#552b16'
-c2 = '#ed872d'  
+c1 = '#ed872d'
+c2 = '#552b16'  
 #Infiniteeth Color Palete v1 Color Palette
 
 plt.scatter(nominal, real, color= c1, s = size ,label='Circle Mask')   
-plt.scatter(nominal, circle_KOH_L, color=c2, s=size, label ='Circle KOH')
+plt.scatter(nominal, comparative, color=c2, s=size, label =comparative_label)
 ####################
 
 #escreva em cima de cada ponto o valor real
@@ -82,7 +69,7 @@ labels = 16
 for i in range(len(nominal)):
     plt.text(nominal[i], real[i]*1.001, f'{real[i]}', ha='center', va='bottom', fontsize=labels, fontweight='bold', color=c1) 
     
-    plt.text(nominal[i], circle_KOH_L[i]*1.002, f'{circle_KOH_L[i]}', ha='center', va='bottom', fontsize=labels, fontweight='bold', color=c2) 
+    plt.text(nominal[i], comparative[i]*1.002, f'{comparative[i]}', ha='center', va='bottom', fontsize=labels, fontweight='bold', color=c2) 
 
 #ticks em x onde estão os pontos
 plt.xticks(nominal)
@@ -108,7 +95,7 @@ plt.text(0, 1.02, 'FIB current : 50 pA', ha='left', va='center', transform=plt.g
 
 if SIDE_SIDE:
     plt.plot([nominal[0], nominal[-1]], [450,450], color='black', lw = 1.5, ls='--')
-    plt.text(0.5, 0.3, 'Nominal D', ha='center', va='center', transform=plt.gca().transAxes, fontsize=16 ) 
+    plt.text(340, 460, 'Nominal D', ha='center', va='center', fontsize=16 ) 
 
 plt.savefig(f'{ylabel}.pdf', bbox_inches='tight')
 plt.show()
