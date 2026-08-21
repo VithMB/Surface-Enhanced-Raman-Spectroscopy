@@ -49,7 +49,7 @@ else:
 
 ####################
 plt.rcParams.update({'font.size': 20})
-plt.rcParams['font.family'] = 'Times New Roman' 
+plt.rcParams['font.family'] = 'Arial' 
 plt.rcParams["scatter.marker"] = 's'
 
 plt.figure(figsize=(16*0.7,9*0.7), dpi=100)
@@ -57,7 +57,7 @@ plt.figure(figsize=(16*0.7,9*0.7), dpi=100)
 #####################
 size = 40
 c1 = '#ed872d'
-c2 = '#552b16'  
+c2 = 'b'  
 #Infiniteeth Color Palete v1 Color Palette
 
 plt.scatter(nominal, real, color= c1, s = size ,label='Mask aperture')   
@@ -85,8 +85,7 @@ plt.gca().yaxis.set_minor_locator(AutoMinorLocator(4))
 # plt.gca().tick_params(axis='both', which='minor', length=3, width=1.8) 
 plt.grid(which ='major', visible=True, linestyle='-',  lw =0.75, alpha=0.25, color = "black")  
 plt.grid(which= 'minor', visible=True, linestyle='-',  lw =0.25, alpha=0.15, color = "black")    
-
-plt.xticks(fontweight='bold')
+ 
 # plt.gca().set_yticklabels([]) 
 
 plt.legend(loc = 'upper center', frameon=False, bbox_to_anchor=(0.5, 1.12), ncol=2, fontsize=18) 

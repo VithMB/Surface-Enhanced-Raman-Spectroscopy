@@ -8,41 +8,36 @@ circle_mask_nominal_L = [300,325,350,375,400]
 circle_mask_real_L = [298,339,375,399,422]  
 pyramid_cavity_real_L = [536,580, 596, 622, 656]
 
-initial = circle_mask_real_L
-final = pyramid_cavity_real_L
+x_axis = circle_mask_nominal_L
+y_axis = pyramid_cavity_real_L
 
-xlabel = 'Mask aperture L'
-ylabel = 'Pyramid cavity L'  
+xlabel = 'Nominal mask aperture L'
+ylabel = 'Measured pyramid cavity L'  
 
 #########################
 function = lambda x, a, b : a*x + b
-popt, pcov = curve_fit(function,  initial, final) 
+popt, pcov = curve_fit(function,  x_axis, y_axis) 
 a,b = popt
 
-sample_points = np.linspace(initial[0]-15, initial[-1]+15, 100)
+sample_points = np.linspace(x_axis[0]-15, x_axis[-1]+15, 100)
 
 
 
 #########################
 
 plt.rcParams.update({'font.size': 20})
-plt.rcParams['font.family'] = 'Times New Roman' 
-plt.rcParams["scatter.marker"] = 'h'
+plt.rcParams['font.family'] = 'Arial' 
+plt.rcParams["scatter.marker"] = 's'
 
 plt.figure(figsize=(16*0.7,9*0.7), dpi=100)
 
 #####################
-<<<<<<< HEAD
-size = 50 
-c1 = 'blue' 
-=======
-size = 65
-c1 = '#552b16'  
-c2 = '#000000'
->>>>>>> 08f5ebcd21523df83752d0dc385c99c80dbda232
+size = 50
+c1 = 'b'  
+c2 = 'k'
 #Infiniteeth Color Palete v1 Color Palette
 
-plt.scatter(initial, final, color= c1, s = size, zorder = 2)   
+plt.scatter(x_axis, y_axis, color= c1, s = size, zorder = 2)   
 plt.plot(sample_points, function(sample_points, *popt), color = c2, lw = 1.5 , ls = '--' ,
          label=rf'{a:.2f}$x$ + {b:.1f}', zorder=1)
 ####################
@@ -61,5 +56,5 @@ plt.grid(which= 'minor', visible=True, linestyle='-',  lw =0.25, alpha=0.15, col
 plt.legend(loc = 'upper center', frameon=False, bbox_to_anchor=(0.5, 1), ncol=2, fontsize=18) 
 plt.text(0, 1.02, 'FIB current : 50 pA', ha='left', va='center', transform=plt.gca().transAxes, fontsize=16, fontweight='bold') 
  
-plt.savefig(f'function.pdf', bbox_inches='tight')
+plt.savefig(f'{xlabel}vs {ylabel}.pdf', bbox_inches='tight')
 plt.show()
