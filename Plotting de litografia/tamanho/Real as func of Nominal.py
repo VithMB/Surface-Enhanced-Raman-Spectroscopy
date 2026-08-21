@@ -20,8 +20,8 @@ plt.rcParams["scatter.marker"] = 's'
 plt.figure(figsize=(16*0.7,9*0.7), dpi=100)
 
 #####################
-size = 40 
-c1 = '#552b16'  
+size = 50 
+c1 = 'blue' 
 #Infiniteeth Color Palete v1 Color Palette
 
 plt.scatter(nominal, final, color= c1, s = size)   
