@@ -23,7 +23,7 @@ MAJOR_LOCATOR_D = 5
 MINOR_LOCATOR_L = 4
 MINOR_LOCATOR_D = 4
 FONTSIZE = 20   
-COLORMAP = 'jet' 
+COLORMAP = 'turbo' 
 
 PRINT_DIMENSIONS = False
 PLANE_DOMAIN_SIDE_nm = 600 # NOT TO CHANGE!
@@ -32,8 +32,8 @@ PLANE_DOMAIN_SIDE_nm = 600 # NOT TO CHANGE!
 ######################################### 
 
 
-data_frame_plano = pd.read_csv('attempt9/E^4_attempt9_Plano.csv', header=4)
-read_path = 'attempt9/'
+data_frame_plano = pd.read_csv('attempt10/E^4_attempt10_Plano.csv', header=4)
+read_path = 'attempt10/'
 
 file_list = listdir(read_path)
 data_frames = np.empty(len(file_list)-1, dtype=object)
