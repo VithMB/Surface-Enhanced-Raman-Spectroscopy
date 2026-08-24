@@ -15,9 +15,9 @@ sample_points = np.linspace(Z_nominal[0]-15, Z_nominal[-1]+15, 100)
 
  
 plt.rcParams.update({'font.size': 20})
-plt.rcParams['font.family'] = 'Times New Roman' 
+plt.rcParams['font.family'] = 'Arial' 
 plt.rcParams["scatter.marker"] = 's'
-plt.rcParams['mathtext.fontset'] = 'stixsans' 
+# plt.rcParams['mathtext.fontset'] = 'stixsans' 
 
 
 plt.figure(figsize=(16*0.7,9*0.7), dpi=100)
