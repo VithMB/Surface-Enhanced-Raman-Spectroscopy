@@ -23,15 +23,13 @@
 ############## Settings #############
 #####################################
 setmag 5000                
-                                  
-D = 0.450 
-L = 0.350    
+
+L = 0.350                                  
+D = 0.450     
 Depth = 0.10                             
 
 QuantityCirclesX = 5
 QuantityCirclesY = 5
-
-SleeptimeMs = 0
 
 StageMovesX = 0
 StageMovesY = 0
@@ -74,8 +72,6 @@ DrawingLoop:
 
     CountCirclesY = CountCirclesY + 1
     if (CountCirclesY < QuantityCirclesY) goto DrawingLoop
-
-sleep SleeptimeMs
 
 #####################################
 ############ Stage Loop Y ###########

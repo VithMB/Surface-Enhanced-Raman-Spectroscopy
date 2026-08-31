@@ -54,13 +54,13 @@ ax = plt.gca()
 # O extent agora usa os limites da UNIÃO
 im = ax.imshow(EF_total, origin='lower', aspect='auto', 
                extent=[L_union.min(), L_union.max(), D_union.min(), D_union.max()],
-               norm=LogNorm(), cmap='turbo', interpolation='bicubic') 
+               norm=LogNorm(), cmap='jet', interpolation='bicubic') 
 
 ax.set_xlabel(r'Pyramid Base Side - $\mathbf{L}$ (nm)', fontweight='bold' )
 ax.set_ylabel(r'Pyramid Spacing - $\mathbf{D}$ (nm)', fontweight='bold' )
 
 plt.gca().xaxis.set_minor_locator(AutoMinorLocator(5))
-plt.gca().yaxis.set_minor_locator(AutoMinorLocator(4))
+plt.gca().yaxis.set_minor_locator(AutoMinorLocator(10))
 # plt.gca().tick_params(axis='both', which='major', length=6, width=2.6)
 # plt.gca().tick_params(axis='both', which='minor', length=3, width=1.8)
 plt.grid(which ='major', visible=True, linestyle='-',  lw =0.75, alpha=0.25, color = "black")  
@@ -70,5 +70,5 @@ plt.colorbar(im, label=rf'EF 633nm $\times$ EF 785nm')
 ax.set_title(rf'633nm $\times$ 785nm ')
 
  
-plt.savefig(f'633x785-turbo.pdf', bbox_inches='tight')
+plt.savefig(f'633x785.pdf', bbox_inches='tight')
 plt.show()
