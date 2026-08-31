@@ -7,9 +7,9 @@ from matplotlib.ticker import AutoMinorLocator
 Z_nominal = [40,50,60,70,80,90,100,110]
 Z_AFM = [68.5, 81.5, 96.5, 111.8, 129.6, 145.7, 162.8, 178.8]
 
-function = lambda x, a, b, c: a*x**2 + b*x + c
+function = lambda x, a, b: a*x + b
 popt, pcov = curve_fit(function, Z_nominal, Z_AFM) 
-a,b,c = popt
+a,b = popt
 
 sample_points = np.linspace(Z_nominal[0]-15, Z_nominal[-1]+15, 100)
 
@@ -30,7 +30,7 @@ c2 = '#ed872d'
 
 ########################### 
 plt.plot(sample_points, function(sample_points, *popt), color=c2, ls='-',lw = 2.3,
-         label=rf'{a:.3f}$x^2$ + {b:.2f}$x$ + {c:.1f}', zorder=1)
+         label=rf'{a:.2f}$x$ + {b:.1f}', zorder=1)
 plt.scatter(Z_nominal, Z_AFM,  color=c1 , s = size, zorder = 2)  
 
 ###########################
