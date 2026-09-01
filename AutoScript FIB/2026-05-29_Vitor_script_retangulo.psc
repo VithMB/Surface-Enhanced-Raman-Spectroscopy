@@ -28,8 +28,8 @@ Height = 0.100
 Base = 0.300    
 Depth = 0.10                      
                            
-QuantityCirclesX = 5
-QuantityCirclesY = 5
+QuantityCirclesX = 10
+QuantityCirclesY = 10
 
 SleeptimeMs = 0
 

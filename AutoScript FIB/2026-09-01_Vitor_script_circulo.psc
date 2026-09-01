@@ -28,8 +28,8 @@ L = 0.350
 D = 0.450     
 Depth = 0.10                             
 
-QuantityCirclesX = 5
-QuantityCirclesY = 5
+QuantityCirclesX = 20
+QuantityCirclesY = 20
 
 StageMovesX = 0
 StageMovesY = 0
