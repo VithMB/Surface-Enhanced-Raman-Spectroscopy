@@ -20,9 +20,9 @@ pyramid_cavity_real_L = [260, 304, 372, 396, 438, 465, 496, 537, 536,580, 596, 6
 
 
 
-circle_mask_nominal_L = circle_mask_nominal_L[2:]
-circle_mask_real_L = circle_mask_real_L[2:]
-pyramid_cavity_real_L = pyramid_cavity_real_L[2:]
+circle_mask_nominal_L = circle_mask_nominal_L[2:-3]
+circle_mask_real_L = circle_mask_real_L[2:-3]
+pyramid_cavity_real_L = pyramid_cavity_real_L[2:-3]
 
 
 
@@ -49,9 +49,9 @@ xlabel = 'Measured mask aperture L'
 ylabel = 'Measured pyramid cavity L'
 
 #########################
-function = lambda x, a, b : a*x + b
+function = lambda x, b : x + b
 popt, pcov = curve_fit(function,  x_axis, y_axis) 
-a,b = popt
+b = popt[0]
 
 sample_points = np.linspace(x_axis[0]-15, x_axis[-1]+15, 100)
 
@@ -73,7 +73,7 @@ c2 = 'k'
 
 plt.scatter(x_axis, y_axis, color= c1, s = size, zorder = 2)   
 plt.plot(sample_points, function(sample_points, *popt), color = c2, lw = 1.5 , ls = '--' ,
-         label=rf'{a:.2f}$x$ + {b:.1f}', zorder=1)
+         label=rf'$x$ + {b:.0f}', zorder=1)
 ####################
 
 plt.ylabel(f'{ylabel} (nm)', fontweight='bold',fontsize=24)  
@@ -90,5 +90,5 @@ plt.grid(which= 'minor', visible=True, linestyle='-',  lw =0.25, alpha=0.15, col
 plt.legend(loc = 'upper center', frameon=False, bbox_to_anchor=(0.5, 1), ncol=2, fontsize=18) 
 plt.text(0, 1.02, 'FIB current : 50 pA', ha='left', va='center', transform=plt.gca().transAxes, fontsize=16, fontweight='bold') 
  
-plt.savefig(f'{xlabel}vs {ylabel}.pdf', bbox_inches='tight')
+plt.savefig(f'x + b - {xlabel}vs {ylabel}.pdf', bbox_inches='tight')
 plt.show()
