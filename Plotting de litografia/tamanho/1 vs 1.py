@@ -4,15 +4,49 @@ import numpy as np
 from scipy.optimize import curve_fit
 
 
-circle_mask_nominal_L = [300,325,350,375,400]
-circle_mask_real_L = [298,339,375,399,422]  
-pyramid_cavity_real_L = [536,580, 596, 622, 656]
+# circle_mask_nominal_L = [300,325,350,375,400]
+# circle_mask_real_L = [298,339,375,399,422]  
+# pyramid_cavity_real_L = [536,580, 596, 622, 656]
 
-x_axis = circle_mask_nominal_L
+### sequencia de furos
+# circle_mask_nominal_L = [80, 110, 140, 170, 200, 230, 260, 290]
+# circle_mask_real_L = [89, 116, 144, 172, 206, 237, 266, 298]
+# pyramid_cavity_real_L = [260, 304, 372, 396, 438, 465, 496, 537]
+
+#together
+circle_mask_nominal_L = [80, 110, 140, 170, 200, 230, 260, 290,300,325,350,375,400]
+circle_mask_real_L = [89, 116, 144, 172, 206, 237, 266, 298, 298,339,375,399,422]
+pyramid_cavity_real_L = [260, 304, 372, 396, 438, 465, 496, 537, 536,580, 596, 622, 656]
+
+
+
+circle_mask_nominal_L = circle_mask_nominal_L[2:]
+circle_mask_real_L = circle_mask_real_L[2:]
+pyramid_cavity_real_L = pyramid_cavity_real_L[2:]
+
+
+
+### novos arranjos
+# circle_mask_nominal_L = [95, 110, 125,    
+#                          95, 110, 125,
+#                          95, 110, 125]
+
+# circle_mask_real_L = [94, 125, 119,
+#                       99, 98, 117,
+#                       90, 114, 128]
+
+# pyramid_cavity_real_L = [320, 303, 323,
+#                          312, 299, 347,
+#                          313, 305, 345]
+
+
+
+
+x_axis = circle_mask_real_L
 y_axis = pyramid_cavity_real_L
 
-xlabel = 'Nominal mask aperture L'
-ylabel = 'Measured pyramid cavity L'  
+xlabel = 'Measured mask aperture L'
+ylabel = 'Measured pyramid cavity L'
 
 #########################
 function = lambda x, a, b : a*x + b
