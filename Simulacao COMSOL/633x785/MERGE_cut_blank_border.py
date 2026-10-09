@@ -5,10 +5,6 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 from matplotlib.ticker import AutoMinorLocator
 
-# Configurações de fonte
-plt.rcParams['font.family'] ='sans-serif' 
-plt.rcParams['mathtext.fontset'] = 'stixsans' 
-plt.rcParams['font.size'] = 14
 
 # 1. Carregar os dados
 dataframe_633 = pd.read_csv('EF_Heatmap_633nm.csv', index_col=0)
@@ -47,7 +43,12 @@ value_785_union = interp_785(target_points).reshape(len(D_union), len(L_union))
 EF_total = value_633_union * value_785_union
 
 # --- PLOTAGEM ---
-plt.figure(figsize=(10, 6))
+
+plt.rcParams.update({'font.size': 20})
+plt.rcParams['font.family'] = 'Arial' 
+# plt.rcParams['mathtext.fontset'] = 'stixsans'  
+
+plt.figure(figsize=(16*0.7,9*0.7), dpi=100)
 ax = plt.gca()
 
 # O extent agora usa os limites da UNIÃO
@@ -58,13 +59,16 @@ im = ax.imshow(EF_total, origin='lower', aspect='auto',
 ax.set_xlabel(r'Pyramid Base Side - $\mathbf{L}$ (nm)', fontweight='bold' )
 ax.set_ylabel(r'Pyramid Spacing - $\mathbf{D}$ (nm)', fontweight='bold' )
 
-ax.xaxis.set_minor_locator(AutoMinorLocator(4))
-ax.yaxis.set_minor_locator(AutoMinorLocator(4)) 
-ax.tick_params(which='major', length=8, width=2.1)
-ax.tick_params(which='minor', length=5, width=1.8)
+plt.gca().xaxis.set_minor_locator(AutoMinorLocator(5))
+plt.gca().yaxis.set_minor_locator(AutoMinorLocator(10))
+# plt.gca().tick_params(axis='both', which='major', length=6, width=2.6)
+# plt.gca().tick_params(axis='both', which='minor', length=3, width=1.8)
+plt.grid(which ='major', visible=True, linestyle='-',  lw =0.75, alpha=0.25, color = "black")  
+plt.grid(which= 'minor', visible=True, linestyle='-',  lw =0.25, alpha=0.15, color = "black")  
 
-plt.colorbar(im, label='EF 633nm * EF 785nm')
+plt.colorbar(im, label=rf'EF 633nm $\times$ EF 785nm')
 ax.set_title(rf'633nm $\times$ 785nm ')
 
-plt.tight_layout()
+ 
+plt.savefig(f'633x785.pdf', bbox_inches='tight')
 plt.show()
