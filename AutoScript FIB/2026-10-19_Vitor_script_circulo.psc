@@ -22,14 +22,15 @@
 #####################################
 ############## Settings #############
 #####################################
-setmag 5000                
+setmag 4000                
 
-L = 0.350 -0.240
+L = 0.425
+LUnderEtch = L - 0.240
 D = 0.450     
 Depth = 0.10                             
 
-QuantityCirclesX = 20
-QuantityCirclesY = 20
+QuantityCirclesX = 4
+QuantityCirclesY = 4
 
 StageMovesX = 0
 StageMovesY = 0
@@ -41,7 +42,7 @@ setparallelmode 0
 ######## Auxiliary Variables ########
 #####################################
 Pitch = L + D   
-CircleDiameter = L
+CircleDiameter = LUnderEtch
 
 CircleOffsetX = -(Pitch * (QuantityCirclesX - 1))/2.0
 CircleOffsetY = +(Pitch * (QuantityCirclesY - 1))/2.0
