@@ -20,9 +20,9 @@ pyramid_cavity_real_L = [260, 304, 372, 396, 438, 465, 496, 537, 536,580, 596, 6
 
 
 
-circle_mask_nominal_L = circle_mask_nominal_L[2:-3]
-circle_mask_real_L = circle_mask_real_L[2:-3]
-pyramid_cavity_real_L = pyramid_cavity_real_L[2:-3]
+circle_mask_nominal_L = circle_mask_nominal_L[2:-1]
+circle_mask_real_L = circle_mask_real_L[2:-1]
+pyramid_cavity_real_L = pyramid_cavity_real_L[2:-1]
 
 
 
@@ -42,10 +42,10 @@ pyramid_cavity_real_L = pyramid_cavity_real_L[2:-3]
 
 
 
-x_axis = circle_mask_real_L
+x_axis = circle_mask_nominal_L
 y_axis = pyramid_cavity_real_L
 
-xlabel = 'Measured mask aperture L'
+xlabel = 'Nominal mask aperture L'
 ylabel = 'Measured pyramid cavity L'
 
 #########################
