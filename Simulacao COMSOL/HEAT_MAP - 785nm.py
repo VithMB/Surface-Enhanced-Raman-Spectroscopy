@@ -23,7 +23,7 @@ MAJOR_LOCATOR_D = 5
 MINOR_LOCATOR_L = 4
 MINOR_LOCATOR_D = 4
 FONTSIZE = 20   
-COLORMAP = 'turbo' 
+COLORMAP = 'jet' 
 
 PRINT_DIMENSIONS = False
 PLANE_DOMAIN_SIDE_nm = 600 # NOT TO CHANGE!
@@ -137,6 +137,7 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
                     norm=LogNorm(vmin=1, vmax=value_max),
                    interpolation='bicubic' if INTERPOLATE else 'None',
                    extent=[L_labels[0], L_labels[-1], D_labels[0], D_labels[-1]])
+
  
     # # Set x-axis ticks and labels (L)
     # L_index = [i for i, value in enumerate(L_labels)]
@@ -157,14 +158,22 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
     ax.set_ylabel(r'Pyramid Spacing - $\mathbf{D}$ (nm)', fontweight='bold' )
 
     #major and minor locator
-    ax.xaxis.set_minor_locator(AutoMinorLocator(MINOR_LOCATOR_L))
-    ax.yaxis.set_minor_locator(AutoMinorLocator(MINOR_LOCATOR_D)) 
-    ax.tick_params(which='major', length=8, width=2.1)
-    ax.tick_params(which='minor', length=5, width=1.8)
+    # ax.xaxis.set_minor_locator(AutoMinorLocator(MINOR_LOCATOR_L))
+    # ax.yaxis.set_minor_locator(AutoMinorLocator(MINOR_LOCATOR_D)) 
+    # ax.tick_params(which='major', length=8, width=2.1)
+    # ax.tick_params(which='minor', length=5, width=1.8)
+
+    ax.xaxis.set_minor_locator(AutoMinorLocator(5))
+    ax.yaxis.set_minor_locator(AutoMinorLocator(10))
+    # ax.tick_params(axis='both', which='major', length=6, width=2.6)
+    # ax.tick_params(axis='both', which='minor', length=3, width=1.8)
+    plt.grid(which ='major', visible=True, linestyle='-',  lw =0.75, alpha=0.25, color = "black")  
+    plt.grid(which= 'minor', visible=True, linestyle='-',  lw =0.25, alpha=0.15, color = "black")  
 
     #more settings
     plt.colorbar(im, label=r'$\mathbf{EF}$')
     ax.set_title(rf'$ \phi = 0 \;\;\;\; \lambda = {wavelength:.0f}$ nm')
+    plt.savefig(f'785.pdf', bbox_inches='tight')
     plt.tight_layout()
     plt.show()
     return 1
