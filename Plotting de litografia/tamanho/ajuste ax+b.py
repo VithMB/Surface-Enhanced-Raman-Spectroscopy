@@ -42,16 +42,18 @@ pyramid_cavity_real_L = pyramid_cavity_real_L[2:-1]
 
 
 
-x_axis = circle_mask_nominal_L
+x_axis = circle_mask_real_L
 y_axis = pyramid_cavity_real_L
 
-xlabel = 'Nominal mask aperture L'
+xlabel = 'Measured mask aperture L'
 ylabel = 'Measured pyramid cavity L'
 
 #########################
 function = lambda x, a, b : a*x + b
 popt, pcov = curve_fit(function,  x_axis, y_axis) 
 a,b = popt
+
+print(f'Fit parameters uncertainty: {np.sqrt(np.diag(pcov))}')
 
 sample_points = np.linspace(x_axis[0]-15, x_axis[-1]+15, 100)
 
