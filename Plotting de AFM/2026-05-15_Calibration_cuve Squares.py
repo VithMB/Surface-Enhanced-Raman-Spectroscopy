@@ -8,9 +8,9 @@ Z_nominal = np.arange(40,130,10)
 Z_AFM = [52.5, 67.4, 80, 94.7, 111.5, 121.1, 140, 162.2, 180]
 
 
-function = lambda x, a, b: a*x + b
+function = lambda x, a : a*x 
 popt, pcov = curve_fit(function, Z_nominal, Z_AFM) 
-a,b = popt
+a  = popt[0]
 
 sample_points = np.linspace(Z_nominal[0]-15, Z_nominal[-1]+15, 100)
 
@@ -31,7 +31,7 @@ c2 = '#ed872d'
 
 ########################### 
 plt.plot(sample_points, function(sample_points, *popt), color=c2, ls='-',lw = 2.3,
-         label=rf'{a:.2f}$x$ {b:.1f}', zorder=1)
+         label=rf'{a:.2f}$x$  ', zorder=1)
 plt.scatter(Z_nominal, Z_AFM,  color=c1 , s = size, zorder = 2)  
 
 ###########################

@@ -20,9 +20,9 @@ pyramid_cavity_real_L = [260, 304, 372, 396, 438, 465, 496, 537, 536,580, 596, 6
 
 
 
-circle_mask_nominal_L = circle_mask_nominal_L[2:-3]
-circle_mask_real_L = circle_mask_real_L[2:-3]
-pyramid_cavity_real_L = pyramid_cavity_real_L[2:-3]
+circle_mask_nominal_L = circle_mask_nominal_L[2:-1]
+circle_mask_real_L = circle_mask_real_L[2:-1]
+pyramid_cavity_real_L = pyramid_cavity_real_L[2:-1]
 
 
 
@@ -52,6 +52,8 @@ ylabel = 'Measured pyramid cavity L'
 function = lambda x, a, b : a*x + b
 popt, pcov = curve_fit(function,  x_axis, y_axis) 
 a,b = popt
+
+print(f'Fit parameters uncertainty: {np.sqrt(np.diag(pcov))}')
 
 sample_points = np.linspace(x_axis[0]-15, x_axis[-1]+15, 100)
 
