@@ -173,7 +173,7 @@ def heatmap2d(arr: np.ndarray, L_labels: list, D_labels: list, wavelength: float
     #more settings
     plt.colorbar(im, label=r'$\mathbf{EF}$')
     ax.set_title(rf'$ \phi = 0 \;\;\;\; \lambda = {wavelength:.0f}$ nm')
-    plt.savefig(f'785.pdf', bbox_inches='tight')
+    plt.savefig(f'{wavelength:.0f}.pdf', bbox_inches='tight')
     plt.tight_layout()
     plt.show()
     return 1
