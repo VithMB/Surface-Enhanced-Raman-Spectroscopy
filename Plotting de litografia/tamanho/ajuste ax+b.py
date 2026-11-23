@@ -42,10 +42,10 @@ pyramid_cavity_real_L = pyramid_cavity_real_L[2:-1]
 
 
 
-x_axis = circle_mask_real_L
+x_axis = circle_mask_nominal_L
 y_axis = pyramid_cavity_real_L
 
-xlabel = 'Measured mask aperture L'
+xlabel = 'Nominal mask aperture L'
 ylabel = 'Measured pyramid cavity L'
 
 #########################
@@ -75,7 +75,7 @@ c2 = 'k'
 
 plt.scatter(x_axis, y_axis, color= c1, s = size, zorder = 2)   
 plt.plot(sample_points, function(sample_points, *popt), color = c2, lw = 1.5 , ls = '--' ,
-         label=rf'{a:.2f}$x$ + {b:.1f}', zorder=1)
+         label=rf'{a:.2f}$x$ + {b:.0f}', zorder=1)
 ####################
 
 plt.ylabel(f'{ylabel} (nm)', fontweight='bold',fontsize=24)  

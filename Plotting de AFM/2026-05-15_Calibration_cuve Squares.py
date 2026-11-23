@@ -54,5 +54,5 @@ plt.legend(loc = 'upper center', frameon=False, bbox_to_anchor=(0.5, 1), ncol=2,
 plt.text(0, 1.02, 'FIB current : 100 pA', ha='left', va='center', transform=plt.gca().transAxes, fontsize=16, fontweight='bold') 
  
 
-plt.savefig(f'Square_Cavities.pdf', bbox_inches='tight')
+plt.savefig(f'Square_Cavities(B=0).pdf', bbox_inches='tight')
 plt.show()
